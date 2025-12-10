@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SharkTank Pakistan — UI (Demo)</title>
+  <style>
+    /* Base / Reset */
+    :root{
+      --bg:#f6fbff;
+      --card:#ffffff;
+      --accent:#0b76d1; /* blue */
+      --accent-2:#06a56b; /* green */
+      --muted:#6b7280;
+      --glass: rgba(255,255,255,0.6);
+      --max-width:1200px;
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(11,118,209,0.06);
+      --shadow-2: 0 6px 18px rgba(6,165,107,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg,var(--bg),#eef7f4 60%);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px 16px;
+      display:flex;justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--max-width)}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;font-weight:700;font-size:20px;box-shadow:var(--shadow)
+    }
+    .brand > h1{margin:0;font-size:18px}
+    nav{display:flex;gap:10px;align-items:center}
+    .nav-link{padding:8px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600}
+    .nav-link.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:var(--shadow);}
+
+    /* Hero */
+    .hero{margin-top:20px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));border-radius:var(--radius);padding:28px;display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;box-shadow:var(--shadow)}
+    .hero-left h2{margin:0;font-size:28px}
+    .hero-left p{color:var(--muted);margin-top:8px}
+    .cta-row{display:flex;gap:12px;margin-top:18px}
+    .btn{padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+    .btn-outline{background:transparent;border:1px solid rgba(15,23,36,0.08);color:var(--accent)}
+
+    .hero-card{background:linear-gradient(180deg,#ffffff, #fbfffc);border-radius:12px;padding:18px;box-shadow:var(--shadow-2)}
+    .stat-row{display:flex;gap:12px;justify-content:space-between}
+    .stat{display:flex;flex-direction:column;gap:6px}
+    .stat strong{font-size:18px}
+    .pill{display:inline-block;background:rgba(6,165,107,0.08);color:var(--accent-2);padding:6px 10px;border-radius:999px;font-weight:700}
+
+    /* Sections grid */
+    main{margin-top:24px;display:grid;grid-template-columns:1fr 360px;gap:20px}
+
+    /* Pitches / Cards */
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .pitch{background:var(--card);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+    .pitch-head{display:flex;gap:12px;align-items:center}
+    .avatar{width:56px;height:56px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#eef6ff,#e6fff0);font-weight:700}
+    .tags{margin-top:10px;display:flex;gap:8px}
+    .tag{padding:6px 8px;border-radius:999px;font-size:12px;background:rgba(11,118,209,0.08);color:var(--accent);font-weight:700}
+    .pitch p{color:var(--muted);margin-top:8px}
+    .pitch-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .progress{height:8px;background:#eef2ff;border-radius:999px;overflow:hidden;width:140px}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:50%}
+
+    /* Judges */
+    .judges{background:linear-gradient(180deg,#fff,#fbfffd);padding:14px;border-radius:12px;box-shadow:var(--shadow)}
+    .judges h3{margin:0 0 12px 0}
+    .judge-list{display:flex;gap:12px;flex-wrap:wrap}
+    .judge{display:flex;flex-direction:column;align-items:center;width:100px;padding:8px}
+    .judge .avatar{width:72px;height:72px;border-radius:14px}
+    .judge small{color:var(--muted);text-align:center;margin-top:6px}
+
+    /* Application UI (just visual) */
+    .apply{background:linear-gradient(180deg,#fff,#f7fffb);padding:16px;border-radius:12px;box-shadow:var(--shadow-2)}
+    .form-row{display:flex;gap:8px;margin-top:10px}
+    .input{padding:10px;border-radius:10px;border:1px solid rgba(12,17,23,0.06);flex:1}
+    .textarea{min-height:96px;resize:none}
+
+    /* Schedule & Sponsors */
+    .panel{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow)}
+    .sponsors{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .spon{padding:8px 10px;border-radius:10px;background:linear-gradient(90deg, rgba(11,118,209,0.06), rgba(6,165,107,0.04));font-weight:700}
+
+    footer{margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#ffffff,#f3fbff);display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)}
+    footer p{margin:0;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr;}
+      main{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+    }
+    @media (max-width:600px){
+      body{padding:18px}
+      .logo{width:48px;height:48px}
+      .brand > h1{font-size:16px}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      nav{width:100%;justify-content:space-between}
+      .nav-link.hide-mobile{display:none}
+      .hero{padding:18px}
+      .avatar{width:48px;height:48px}
+      .judge{width:72px}
+    }
+
+    /* Utility */
+    .muted{color:var(--muted)}
+    .center{display:grid;place-items:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">ST</div>
+        <div>
+          <h1>SharkTank Pakistan</h1>
+          <div class="muted" style="font-size:12px">Pitch · Invest · Scale</div>
+        </div>
+      </div>
+
+      <nav>
+        <a class="nav-link hide-mobile" href="#pitches">Pitches</a>
+        <a class="nav-link hide-mobile" href="#judges">Judges</a>
+        <a class="nav-link hide-mobile" href="#apply">Apply</a>
+        <a class="nav-link cta" href="#">Watch Live</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Welcome to <span style="color:var(--accent);">SharkTank Pakistan</span></h2>
+        <p>Showcase your startup to Pakistan's top investors. This is a visual demo of the UI only — no backend functionality included.</p>
+
+        <div class="cta-row">
+          <button class="btn btn-primary">Apply as Founder</button>
+          <button class="btn btn-outline">Nominate a Startup</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+          <div class="pill">Next Episode: Dec 20, 2025</div>
+          <div class="muted" style="font-size:13px">• 10 startups • 5 judges</div>
+        </div>
+
+      </div>
+
+      <aside class="hero-card">
+        <div class="stat-row">
+          <div class="stat"><small class="muted">Total Applicants</small><strong>1,824</strong></div>
+          <div class="stat"><small class="muted">Investments</small><strong>PKR 120M</strong></div>
+          <div class="stat"><small class="muted">Seasons</small><strong>3</strong></div>
+        </div>
+
+        <div style="margin-top:14px">
+          <small class="muted">Featured</small>
+          <div style="display:flex;gap:10px;margin-top:8px;align-items:center">
+            <div style="flex:1">
+              <strong>GreenGrain</strong>
+              <div class="muted" style="font-size:13px">Sustainable food packaging</div>
+            </div>
+            <div class="center" style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;font-weight:700">GG</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <main>
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h2 id="pitches">Latest Pitches</h2>
+          <div class="muted">Showing 8 of 120</div>
+        </div>
+
+        <div class="cards" style="margin-top:12px">
+          <article class="pitch">
+            <div class="pitch-head">
+              <div class="avatar">GG</div>
+              <div>
+                <strong>GreenGrain</strong>
+                <div class="muted" style="font-size:13px">Agri-tech · Lahore</div>
+              </div>
+            </div>
+            <p>Eco-friendly packaging made from agricultural waste. Looking for PKR 8M for 10% equity.</p>
+            <div class="tags"><span class="tag">Sustainability</span><span class="tag">B2B</span></div>
+            <div class="pitch-footer">
+              <div class="progress"><i style="width:64%"></i></div>
+              <div class="muted">Views 12.3k</div>
+            </div>
+          </article>
+
+          <article class="pitch">
+            <div class="pitch-head">
+              <div class="avatar">NZ</div>
+              <div>
+                <strong>NeuroZone</strong>
+                <div class="muted" style="font-size:13px">HealthTech · Karachi</div>
+              </div>
+            </div>
+            <p>Affordable neuro-rehab devices for clinics and home care. Seeking PKR 5M.</p>
+            <div class="tags"><span class="tag">MedTech</span><span class="tag">Hardware</span></div>
+            <div class="pitch-footer">
+              <div class="progress"><i style="width:28%"></i></div>
+              <div class="muted">Views 4.8k</div>
+            </div>
+          </article>
+
+          <article class="pitch">
+            <div class="pitch-head">
+              <div class="avatar">FM</div>
+              <div>
+                <strong>FixMate</strong>
+                <div class="muted" style="font-size:13px">Marketplace · Islamabad</div>
+              </div>
+            </div>
+            <p>Quick home repairs and verified professionals on-demand. Looking for PKR 2M pre-seed.</p>
+            <div class="tags"><span class="tag">Marketplace</span><span class="tag">Logistics</span></div>
+            <div class="pitch-footer">
+              <div class="progress"><i style="width:46%"></i></div>
+              <div class="muted">Views 7.4k</div>
+            </div>
+          </article>
+
+          <article class="pitch">
+            <div class="pitch-head">
+              <div class="avatar">PK</div>
+              <div>
+                <strong>PakCart</strong>
+                <div class="muted" style="font-size:13px">eCommerce · Karachi</div>
+              </div>
+            </div>
+            <p>Cross-border eCommerce fulfillment for Pakistani SMBs. Seeking PKR 10M.</p>
+            <div class="tags"><span class="tag">Logistics</span><span class="tag">eCommerce</span></div>
+            <div class="pitch-footer">
+              <div class="progress"><i style="width:52%"></i></div>
+              <div class="muted">Views 9.1k</div>
+            </div>
+          </article>
+
+        </div>
+
+        <div style="text-align:center;margin-top:16px">
+          <button class="btn btn-outline">Load More Pitches</button>
+        </div>
+      </section>
+
+      <aside style="display:flex;flex-direction:column;gap:12px">
+        <div class="judges panel" id="judges">
+          <h3>Meet the Sharks</h3>
+          <div class="judge-list">
+            <div class="judge"><div class="avatar">AH</div><small>Ali Hussain<br/><strong style="color:var(--accent)">Investor</strong></small></div>
+            <div class="judge"><div class="avatar">SR</div><small>Sana Riaz<br/><strong style="color:var(--accent)">VC Partner</strong></small></div>
+            <div class="judge"><div class="avatar">FT</div><small>Faisal Tariq<br/><strong style="color:var(--accent)">Angel</strong></small></div>
+            <div class="judge"><div class="avatar">MN</div><small>Mariam Noor<br/><strong style="color:var(--accent)">Founder</strong></small></div>
+            <div class="judge"><div class="avatar">ZT</div><small>Zubair Tanveer<br/><strong style="color:var(--accent)">Operator</strong></small></div>
+          </div>
+        </div>
+
+        <div class="apply panel" id="apply">
+          <h3>Apply to Pitch</h3>
+          <small class="muted">(UI demo only — no submit)</small>
+          <div class="form-row" style="margin-top:10px">
+            <input class="input" placeholder="Startup name" />
+            <input class="input" placeholder="City" />
+          </div>
+          <div class="form-row">
+            <input class="input" placeholder="Founder name" />
+            <input class="input" placeholder="Email" />
+          </div>
+          <div class="form-row">
+            <input class="input" placeholder="Funding required (PKR)" />
+            <input class="input" placeholder="Equity %" />
+          </div>
+          <textarea class="input textarea" placeholder="Short pitch description"></textarea>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-primary" style="flex:1">Preview Pitch</button>
+            <button class="btn btn-outline">Save Draft</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h4 style="margin:0">Event Schedule</h4>
+          <small class="muted">Dec 20, 2025 · Expo Center</small>
+          <ul style="margin-top:10px;padding-left:18px;color:var(--muted)">
+            <li>10:00 — Doors Open</li>
+            <li>11:00 — Opening Remarks</li>
+            <li>12:00 — Pitches Round 1</li>
+            <li>15:00 — Lunch & Networking</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h4 style="margin:0">Sponsors</h4>
+          <div class="sponsors" style="margin-top:10px">
+            <div class="spon">BankPK</div>
+            <div class="spon">TechFund</div>
+            <div class="spon">LogiPak</div>
+            <div class="spon">FreshLabs</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 SharkTank Pakistan · Visual UI Demo</p>
+      <div class="muted">Follow: Twitter · LinkedIn · YouTube</div>
+    </footer>
+  </div>
+</body>
+</html>

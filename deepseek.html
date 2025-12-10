@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SharkTank Pakistan | Where Entrepreneurs Meet Investors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0a2463;
+            --shark-blue: #1e3a8a;
+            --accent-red: #e63946;
+            --accent-gold: #ffb347;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(10, 36, 99, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.98) 0%, rgba(30, 58, 138, 0.98) 100%);
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transform: rotate(-10deg);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+        
+        .logo-text span {
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 900;
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .header-cta {
+            background: linear-gradient(135deg, var(--accent-red), #ff6b6b);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0 7rem;
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.9) 0%, rgba(30, 58, 138, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--accent-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-btn {
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-red), #ff6b6b);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(230, 57, 70, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: translateY(-5px);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        /* Sharks Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--shark-blue);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .sharks-section {
+            padding: 6rem 0;
+            background-color: var(--light-bg);
+        }
+        
+        .sharks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .shark-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .shark-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .shark-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+        }
+        
+        .shark-img {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .shark-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+        }
+        
+        .shark-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .shark-title {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--accent-gold);
+        }
+        
+        .shark-info {
+            padding: 25px;
+        }
+        
+        .shark-bio {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .shark-specialty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--shark-blue);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .shark-specialty i {
+            color: var(--accent-red);
+        }
+        
+        /* Pitches Section */
+        .pitches-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+        
+        .pitches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .pitch-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .pitch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .pitch-header {
+            padding: 25px;
+            border-bottom: 1px solid #f1f5f9;
+            position: relative;
+        }
+        
+        .pitch-category {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, var(--shark-blue), var(--primary-blue));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .pitch-title {
+            font-size: 1.4rem;
+            color: var(--shark-blue);
+            margin-bottom: 8px;
+        }
+        
+        .pitch-company {
+            color: var(--accent-red);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .pitch-body {
+            padding: 25px;
+        }
+        
+        .pitch-description {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        
+        .pitch-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--shark-blue);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+        
+        .pitch-progress {
+            margin-top: 25px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            border-radius: 5px;
+            width: 65%;
+        }
+        
+        .pitch-status {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 15px;
+            background: rgba(30, 58, 138, 0.1);
+            color: var(--shark-blue);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Apply Section */
+        .apply-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.05) 0%, rgba(30, 58, 138, 0.05) 100%);
+            text-align: center;
+        }
+        
+        .apply-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .apply-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+        }
+        
+        .apply-title {
+            font-size: 2.5rem;
+            color: var(--shark-blue);
+            margin-bottom: 20px;
+        }
+        
+        .apply-text {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .apply-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 180px;
+            padding: 25px 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--shark-blue), var(--primary-blue));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 15px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: var(--shark-blue);
+            margin-bottom: 10px;
+        }
+        
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .apply-btn {
+            background: linear-gradient(135deg, var(--shark-blue), var(--primary-blue));
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(10, 36, 99, 0.2);
+        }
+        
+        .apply-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(10, 36, 99, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0c1c46 100%);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-gold);
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo-icon {
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        
+        .footer-logo-text span {
+            background: linear-gradient(to right, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-column p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background: var(--accent-red);
+            transform: translateY(-5px);
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        .contact-info i {
+            color: var(--accent-gold);
+            width: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .sharks-grid, .pitches-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 36, 99, 0.98);
+                backdrop-filter: blur(10px);
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header-cta {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+            }
+            
+            .apply-steps {
+                flex-direction: column;
+            }
+            
+            .apply-container {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 3rem 0 5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .sharks-grid, .pitches-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shark"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>SHARK<span>TANK</span></h1>
+                    <p>PAKISTAN</p>
+                </div>
+            </div>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#sharks"><i class="fas fa-users"></i> Sharks</a></li>
+                    <li><a href="#pitches"><i class="fas fa-microphone-alt"></i> Pitches</a></li>
+                    <li><a href="#apply"><i class="fas fa-rocket"></i> Apply</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+            
+            <button class="header-cta">
+                <i class="fas fa-play-circle"></i> Watch Episodes
+            </button>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h2 class="delay-1">Where Dreams Meet Investment</h2>
+                <p class="delay-2">Present your business idea to Pakistan's most influential investors. Get the funding, mentorship, and exposure you need to transform your startup into a success story.</p>
+                
+                <div class="hero-buttons delay-3">
+                    <button class="hero-btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Apply to Pitch
+                    </button>
+                    <button class="hero-btn btn-secondary">
+                        <i class="fas fa-play-circle"></i> Watch Pitches
+                    </button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">Rs 250M+</div>
+                        <div class="stat-label">Total Investments</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">85+</div>
+                        <div class="stat-label">Startups Funded</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Shark Investors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">50K+</div>
+                        <div class="stat-label">Applications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sharks Section -->
+    <section class="sharks-section" id="sharks">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Our Sharks</h2>
+                <p>Pakistan's most prominent investors ready to fund the next big idea</p>
+            </div>
+            
+            <div class="sharks-grid">
+                <!-- Shark 1 -->
+                <div class="shark-card fade-in">
+                    <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
+                        <div class="shark-overlay">
+                            <h3 class="shark-name">Ali Raza Khan</h3>
+                            <p class="shark-title">Tech Mogul & Serial Entrepreneur</p>
+                        </div>
+                    </div>
+                    <div class="shark-info">
+                        <p class="shark-bio">Founder of PakTech Ventures with investments in over 50 startups. Specializes in technology and e-commerce businesses with scalable models.</p>
+                        <div class="shark-specialty">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Focus: Technology, E-commerce, SaaS</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Shark 2 -->
+                <div class="shark-card fade-in delay-1">
+                    <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
+                        <div class="shark-overlay">
+                            <h3 class="shark-name">Fatima Ahmed</h3>
+                            <p class="shark-title">Retail & FMCG Tycoon</p>
+                        </div>
+                    </div>
+                    <div class="shark-info">
+                        <p class="shark-bio">CEO of Pakistan's largest retail chain with 200+ outlets nationwide. Looking for innovative consumer products and retail solutions.</p>
+                        <div class="shark-specialty">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Focus: Retail, Consumer Goods, FMCG</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Shark 3 -->
+                <div class="shark-card fade-in delay-2">
+                    <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
+                        <div class="shark-overlay">
+                            <h3 class="shark-name">Ahmed Malik</h3>
+                            <p class="shark-title">Real Estate & Finance Expert</p>
+                        </div>
+                    </div>
+                    <div class="shark-info">
+                        <p class="shark-bio">Chairman of Malik Group with investments across Asia. Focuses on scalable business models with strong financials and clear exit strategies.</p>
+                        <div class="shark-specialty">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Focus: Real Estate, FinTech, Scalable Models</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pitches Section -->
+    <section class="pitches-section" id="pitches">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Pitches</h2>
+                <p>Recent startup pitches that caught our sharks' attention</p>
+            </div>
+            
+            <div class="pitches-grid">
+                <!-- Pitch 1 -->
+                <div class="pitch-card fade-in">
+                    <div class="pitch-header">
+                        <div class="pitch-category">ECO-TECH</div>
+                        <h3 class="pitch-title">EcoPack Solutions</h3>
+                        <p class="pitch-company">Biodegradable Packaging</p>
+                    </div>
+                    <div class="pitch-body">
+                        <p class="pitch-description">Creating eco-friendly packaging from agricultural waste to replace plastic. Already secured contracts with 3 major retailers.</p>
+                        
+                        <div class="pitch-stats">
+                            <div class="stat">
+                                <div class="stat-value">Rs 2M</div>
+                                <div class="stat-label">Investment Ask</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">12%</div>
+                                <div class="stat-label">Equity Offered</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">2</div>
+                                <div class="stat-label">Sharks Interested</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pitch-progress">
+                            <div class="progress-header">
+                                <span>Deal Progress</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%;"></div>
+                            </div>
+                            <div class="pitch-status">
+                                <i class="fas fa-clock"></i> Deal in Progress
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pitch 2 -->
+                <div class="pitch-card fade-in delay-1">
+                    <div class="pitch-header">
+                        <div class="pitch-category">HEALTH-TECH</div>
+                        <h3 class="pitch-title">MediQuick App</h3>
+                        <p class="pitch-company">Telemedicine Platform</p>
+                    </div>
+                    <div class="pitch-body">
+                        <p class="pitch-description">Connecting patients with doctors for instant video consultations across Pakistan. 10,000+ registered doctors on platform.</p>
+                        
+                        <div class="pitch-stats">
+                            <div class="stat">
+                                <div class="stat-value">Rs 5M</div>
+                                <div class="stat-label">Investment Ask</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">15%</div>
+                                <div class="stat-label">Equity Offered</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">Sharks Interested</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pitch-progress">
+                            <div class="progress-header">
+                                <span>Deal Progress</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%;"></div>
+                            </div>
+                            <div class="pitch-status">
+                                <i class="fas fa-check-circle"></i> Deal Finalized
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pitch 3 -->
+                <div class="pitch-card fade-in delay-2">
+                    <div class="pitch-header">
+                        <div class="pitch-category">AGRI-TECH</div>
+                        <h3 class="pitch-title">FarmConnect</h3>
+                        <p class="pitch-company">Digital Agri Marketplace</p>
+                    </div>
+                    <div class="pitch-body">
+                        <p class="pitch-description">Digital platform connecting farmers directly with buyers to eliminate middlemen. Serving 5,000+ farmers across Punjab.</p>
+                        
+                        <div class="pitch-stats">
+                            <div class="stat">
+                                <div class="stat-value">Rs 3.5M</div>
+                                <div class="stat-label">Investment Ask</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">10%</div>
+                                <div class="stat-label">Equity Offered</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">4</div>
+                                <div class="stat-label">Sharks Interested</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pitch-progress">
+                            <div class="progress-header">
+                                <span>Deal Progress</span>
+                                <span>40%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%;"></div>
+                            </div>
+                            <div class="pitch-status">
+                                <i class="fas fa-comments"></i> Negotiations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Apply Section -->
+    <section class="apply-section" id="apply">
+        <div class="container">
+            <div class="apply-container fade-in">
+                <h2 class="apply-title">Ready to Pitch?</h2>
+                <p class="apply-text">Join hundreds of entrepreneurs who've transformed their businesses with SharkTank Pakistan. The application process is simple and straightforward.</p>
+                
+                <div class="apply-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4 class="step-title">Online Application</h4>
+                        <p class="step-desc">Fill out our detailed online form with your business details.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4 class="step-title">Initial Screening</h4>
+                        <p class="step-desc">Our team reviews your application for potential.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4 class="step-title">Pitch Training</h4>
+                        <p class="step-desc">Selected applicants receive coaching for their pitch.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4 class="step-title">Face the Sharks</h4>
+                        <p class="step-desc">Pitch your idea to the sharks on national television.</p>
+                    </div>
+                </div>
+                
+                <button class="apply-btn">
+                    <i class="fas fa-rocket"></i> Start Your Application
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-shark"></i>
+                        </div>
+                        <div class="footer-logo-text">
+                            SHARK<span>TANK</span>
+                        </div>
+                    </div>
+                    <p>Pakistan's premier platform connecting entrepreneurs with investors. Broadcast on PTV every Friday at 9 PM.</p>
+                    
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#sharks"><i class="fas fa-chevron-right"></i> Meet the Sharks</a></li>
+                        <li><a href="#pitches"><i class="fas fa-chevron-right"></i> Previous Pitches</a></li>
+                        <li><a href="#apply"><i class="fas fa-chevron-right"></i> Apply to Pitch</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Watch Episodes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Information</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Karachi, Lahore, Islamabad Studios</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+92-300-1234567 (Applications)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>apply@sharktankpk.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Applications open year-round</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 SharkTank Pakistan. All rights reserved. | This is a UI demonstration only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (mainNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        // Check on load and scroll
+        window.addEventListener('scroll', fadeInOnScroll);
+        fadeInOnScroll(); // Initial check
+        
+        // Add active class to nav links based on scroll position
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

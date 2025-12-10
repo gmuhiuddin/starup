@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SharkTank Pakistan | Investor Pitch Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a3a5f;
+            --accent-color: #e63946;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --warm-factor: 0.8;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .temperature-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            width: 280px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .temp-slider-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .temp-slider-container label {
+            font-weight: 600;
+            margin-right: 10px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+        
+        #temperatureSlider {
+            flex-grow: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, #4a8fd8, #e63946);
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        #temperatureSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .temp-value {
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 50px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(26, 58, 95, 0.85), rgba(26, 58, 95, 0.9)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.5);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .sharks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 4rem;
+        }
+        
+        .shark-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .shark-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .shark-img {
+            height: 250px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .shark-info {
+            padding: 25px;
+        }
+        
+        .shark-name {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .shark-title {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .shark-bio {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .pitches-section {
+            background-color: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+        
+        .pitches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .pitch-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .pitch-header {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pitch-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .pitch-company {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .pitch-body {
+            padding: 25px;
+        }
+        
+        .pitch-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .pitch-progress {
+            margin-top: 20px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 65%;
+        }
+        
+        .pitch-progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .temperature-control {
+                position: static;
+                margin: 20px auto;
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 25px;
+                right: 20px;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.7rem;
+            }
+            
+            .sharks-grid, .pitches-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-column {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Temperature Control Panel -->
+    <div class="temperature-control">
+        <div class="temp-slider-container">
+            <label for="temperatureSlider">Theme Temperature:</label>
+            <input type="range" id="temperatureSlider" min="0.7" max="0.9" step="0.01" value="0.8">
+        </div>
+        <div class="temp-value">Current: <span id="tempValue">0.80</span></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-fish" style="font-size: 2.5rem;"></i>
+                <h1>Shark<span>Tank</span> Pakistan</h1>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#sharks">Sharks</a></li>
+                    <li><a href="#pitches">Pitches</a></li>
+                    <li><a href="#apply">Apply</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Where Pakistani Entrepreneurs Meet Investors</h2>
+            <p>Present your business idea to Pakistan's most influential investors. Get the funding and mentorship you need to grow your startup.</p>
+            <a href="#apply" class="cta-button">Apply to Pitch <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+    
+    <!-- Sharks Section -->
+    <section class="container" id="sharks">
+        <div class="section-title">
+            <h2>Meet Our Sharks</h2>
+        </div>
+        
+        <div class="sharks-grid">
+            <!-- Shark 1 -->
+            <div class="shark-card">
+                <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="shark-info">
+                    <h3 class="shark-name">Ali Raza Khan</h3>
+                    <p class="shark-title">Tech Mogul & Serial Entrepreneur</p>
+                    <p class="shark-bio">Founder of PakTech Ventures with investments in over 50 startups. Specializes in technology and e-commerce businesses.</p>
+                </div>
+            </div>
+            
+            <!-- Shark 2 -->
+            <div class="shark-card">
+                <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-1.2.1&auto=format&fit=crop&w-800&q=80');"></div>
+                <div class="shark-info">
+                    <h3 class="shark-name">Fatima Ahmed</h3>
+                    <p class="shark-title">Retail & FMCG Tycoon</p>
+                    <p class="shark-bio">CEO of Pakistan's largest retail chain. Looking for innovative consumer products and retail solutions.</p>
+                </div>
+            </div>
+            
+            <!-- Shark 3 -->
+            <div class="shark-card">
+                <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="shark-info">
+                    <h3 class="shark-name">Ahmed Malik</h3>
+                    <p class="shark-title">Real Estate & Finance Expert</p>
+                    <p class="shark-bio">Chairman of Malik Group with investments across Asia. Focuses on scalable business models with strong financials.</p>
+                </div>
+            </div>
+            
+            <!-- Shark 4 -->
+            <div class="shark-card">
+                <div class="shark-img" style="background-image: url('https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="shark-info">
+                    <h3 class="shark-name">Zara Sheikh</h3>
+                    <p class="shark-title">Healthcare & Biotech Investor</p>
+                    <p class="shark-bio">Former surgeon turned venture capitalist. Invests in healthcare innovation and biotech startups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pitches Section -->
+    <section class="pitches-section" id="pitches">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Pitches</h2>
+            </div>
+            
+            <div class="pitches-grid">
+                <!-- Pitch 1 -->
+                <div class="pitch-card">
+                    <div class="pitch-header">
+                        <h3 class="pitch-title">EcoPack Solutions</h3>
+                        <p class="pitch-company">Biodegradable Packaging</p>
+                    </div>
+                    <div class="pitch-body">
+                        <p>Creating eco-friendly packaging from agricultural waste to replace plastic.</p>
+                        
+                        <div class="pitch-stats">
+                            <div class="stat">
+                                <div class="stat-value">₹2M</div>
+                                <div class="stat-label">Investment Ask</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">12%</div>
+                                <div class="stat-label">Equity Offered</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">2</div>
+                                <div class="stat-label">Sharks Interested</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pitch-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <div class="pitch-progress-text">
+                                <span>Deal Progress</span>
+                                <span>65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pitch 2 -->
+                <div class="pitch-card">
+                    <div class="pitch-header">
+                        <h3 class="pitch-title">MediQuick App</h3>
+                        <p class="pitch-company">Telemedicine Platform</p>
+                    </div>
+                    <div class="pitch-body">
+                        <p>Connecting patients with doctors for instant video consultations across Pakistan.</p>
+                        
+                        <div class="pitch-stats">
+                            <div class="stat">
+                                <div class="stat-value">₹5M</div>
+                                <div class="stat-label">Investment Ask</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">15%</div>
+                                <div class="stat-label">Equity Offered</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">Sharks Interested</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pitch-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%;"></div>
+                            </div>
+                            <div class="pitch-progress-text">
+                                <span>Deal Progress</span>
+                                <span>80%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pitch 3 -->
+                <div class="pitch-card">
+                    <div class="pitch-header">
+                        <h3 class="pitch-title">FarmConnect</h3>
+                        <p class="pitch-company">Agri-Tech Marketplace</p>
+                    </div>
+                    <div class="pitch-body">
+                        <p>Digital platform connecting farmers directly with buyers to eliminate middlemen.</p>
+                        
+                        <div class="pitch-stats">
+                            <div class="stat">
+                                <div class="stat-value">₹3.5M</div>
+                                <div class="stat-label">Investment Ask</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">10%</div>
+                                <div class="stat-label">Equity Offered</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">4</div>
+                                <div class="stat-label">Sharks Interested</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pitch-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%;"></div>
+                            </div>
+                            <div class="pitch-progress-text">
+                                <span>Deal Progress</span>
+                                <span>40%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>SharkTank Pakistan</h3>
+                <p>Pakistan's premier platform connecting entrepreneurs with investors. Broadcast on PTV every Friday at 9 PM.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#sharks">Meet the Sharks</a></li>
+                    <li><a href="#pitches">Previous Pitches</a></li>
+                    <li><a href="#apply">Apply to Pitch</a></li>
+                    <li><a href="#about">About the Show</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Karachi, Lahore, Islamabad Studios</li>
+                    <li><i class="fas fa-phone"></i> +92-300-1234567</li>
+                    <li><i class="fas fa-envelope"></i> apply@sharktankpk.com</li>
+                    <li><i class="fas fa-clock"></i> Applications open year-round</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 SharkTank Pakistan. All rights reserved. | This is a UI demonstration only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Temperature Slider Functionality
+        const temperatureSlider = document.getElementById('temperatureSlider');
+        const tempValue = document.getElementById('tempValue');
+        const root = document.documentElement;
+        
+        // Update temperature value display
+        temperatureSlider.addEventListener('input', function() {
+            const value = parseFloat(this.value).toFixed(2);
+            tempValue.textContent = value;
+            
+            // Update CSS variable
+            root.style.setProperty('--warm-factor', value);
+            
+            // Calculate adjusted colors based on temperature
+            adjustThemeColors(value);
+        });
+        
+        // Function to adjust theme colors based on temperature
+        function adjustThemeColors(temperature) {
+            // Convert temperature (0.7-0.9) to a factor for color adjustments
+            const factor = (temperature - 0.7) * 5; // Maps 0.7->0, 0.9->1
+            
+            // Adjust primary color (blue) to be warmer with higher temperature
+            const basePrimary = [26, 58, 95]; // #1a3a5f
+            const warmPrimary = [60, 40, 90]; // Warmer color
+            
+            const primaryColor = [
+                Math.round(basePrimary[0] + (warmPrimary[0] - basePrimary[0]) * factor),
+                Math.round(basePrimary[1] + (warmPrimary[1] - basePrimary[1]) * factor),
+                Math.round(basePrimary[2] + (warmPrimary[2] - basePrimary[2]) * factor)
+            ];
+            
+            // Adjust accent color (red) based on temperature
+            const baseAccent = [230, 57, 70]; // #e63946
+            const warmAccent = [240, 90, 40]; // More orange
+            
+            const accentColor = [
+                Math.round(baseAccent[0] + (warmAccent[0] - baseAccent[0]) * factor),
+                Math.round(baseAccent[1] + (warmAccent[1] - baseAccent[1]) * factor),
+                Math.round(baseAccent[2] + (warmAccent[2] - baseAccent[2]) * factor)
+            ];
+            
+            // Adjust background warmth
+            const baseLight = [240, 242, 245]; // #f0f2f5
+            const warmLight = [245, 240, 235]; // Warmer background
+            
+            const lightColor = [
+                Math.round(baseLight[0] + (warmLight[0] - baseLight[0]) * factor),
+                Math.round(baseLight[1] + (warmLight[1] - baseLight[1]) * factor),
+                Math.round(baseLight[2] + (warmLight[2] - baseLight[2]) * factor)
+            ];
+            
+            // Apply colors to CSS variables
+            root.style.setProperty('--primary-color', `rgb(${primaryColor[0]}, ${primaryColor[1]}, ${primaryColor[2]})`);
+            root.style.setProperty('--accent-color', `rgb(${accentColor[0]}, ${accentColor[1]}, ${accentColor[2]})`);
+            root.style.setProperty('--light-color', `rgb(${lightColor[0]}, ${lightColor[1]}, ${lightColor[2]})`);
+            
+            // Adjust card background opacity based on temperature
+            const cardOpacity = 0.85 + (factor * 0.1);
+            root.style.setProperty('--card-bg', `rgba(255, 255, 255, ${cardOpacity})`);
+            
+            // Adjust shadow intensity
+            const shadowIntensity = 0.12 - (factor * 0.04);
+            root.style.setProperty('--shadow', `0 8px 30px rgba(0, 0, 0, ${shadowIntensity})`);
+        }
+        
+        // Initialize with default temperature
+        adjustThemeColors(0.8);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (mainNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
